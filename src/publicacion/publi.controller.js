@@ -3,12 +3,10 @@ import User from "../usuarios/users.model.js";
 
 export const agregarPublicacion = async (req, res) => {
     try {
-        const { titulo, categoria, texto } = req.body;
-        const autor = req.user._id;
+        const data = req.body;
 
-        const nuevaPublicacion = new Publicacion({ titulo, categoria, texto, autor });
-        await nuevaPublicacion.save();
-
+        const nuevaPublicacion = await Publicacion.create(data);
+        
         res.status(201).json({
             success: true,
             msg: 'Publicación agregada',
@@ -23,47 +21,15 @@ export const agregarPublicacion = async (req, res) => {
     }
 };
 
-export const obtenerPublicacionPorId = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const publicacion = await Publicacion.findById(id);
-
-        if (!publicacion) {
-            return res.status(404).json({
-                success: false,
-                msg: 'Publicación no encontrada'
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            publicacion
-        });
-    } catch (err) {
-        return res.status(500).json({
-            success: false,
-            msg: 'Error al obtener la publicación',
-            error: err.message
-        });
-    }
-};
-
 export const obtenerPublicaciones = async (req, res) => {
     try {
-        const { limite = 5, desde = 0 } = req.query;
         const query = { status: true };
-
-        const [total, publicaciones] = await Promise.all([
-            Publicacion.countDocuments(query),
-            Publicacion.find(query)
-                .skip(Number(desde))
-                .limit(Number(limite))
-        ]);
-
+ 
+        const publication = await Publicacion.find(query);
+ 
         return res.status(200).json({
             success: true,
-            total,
-            publicaciones
+            publication
         });
     } catch (err) {
         return res.status(500).json({
@@ -77,7 +43,7 @@ export const obtenerPublicaciones = async (req, res) => {
 export const actualizarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
-        const { titulo, categoria, texto } = req.body;
+        const data = req.body;
         const usuarioId = req.user._id; // Asumiendo que el ID del usuario está en req.user
 
         const publicacion = await Publicacion.findById(id);
