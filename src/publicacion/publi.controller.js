@@ -23,13 +23,22 @@ export const agregarPublicacion = async (req, res) => {
 
 export const obtenerPublicaciones = async (req, res) => {
     try {
+        const { limite = 5 ,desde = 0 } = req.query;    
         const query = { status: true };
  
-        const publication = await Publicacion.find(query);
- 
+        const publicacion = await Publicacion.find(query);
+        
+        const [total, Publicacion] = await Promise.all([
+            Publicacion.countDocuments(query),
+            Publicacion.find(query)
+                .skip(Number(desde))
+                .limit(Number(limite))
+        ]);
+
         return res.status(200).json({
             success: true,
-            publication
+            total,
+            publicacion
         });
     } catch (err) {
         return res.status(500).json({
