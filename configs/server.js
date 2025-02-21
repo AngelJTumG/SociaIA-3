@@ -30,7 +30,7 @@ const conectarDB = async () =>{
 }
  
 const routes = (app) => {
-    app.use("/uniNet/v1/auth", authRoutes);
+    app.use("/socialIA/v1/auth", authRoutes);
     //app.use("/uniNet/v1/cliente", clienteRoutes);
 }
  
