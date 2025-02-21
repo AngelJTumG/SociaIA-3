@@ -8,15 +8,11 @@ const publicacionSchema = new Schema({
     },
     categoria: {
         type: String,
-        required: [true, "La categoría es requerida"]
+        required: [true, "La categoría es requerida"],
     },
     texto: {
         type: String,
         required: [true, "El texto es requerido"]
-    },
-    publicationContent: {
-        type: String,
-        required: [true, "Content is required"]
     },
     autor: {
         type: Schema.Types.ObjectId,

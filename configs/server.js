@@ -6,7 +6,8 @@ import helmet from "helmet"
 import morgan from "morgan"
 import { dbConnection } from "./mongo.js"
 import authRoutes from "../src/auth/auth.routes.js";
-//import clienteRoutes from "../src/usuarios/cliente.routes.js";
+import userRoutes from "../src/usuarios/user.routes.js";
+import publiRoutes from "../src/publicacion/publi.routes.js"
 import apiLimiter from "../src/middlewares/rate-limit-validator.js"
  
  
@@ -31,7 +32,8 @@ const conectarDB = async () =>{
  
 const routes = (app) => {
     app.use("/socialIA/v1/auth", authRoutes);
-    //app.use("/uniNet/v1/cliente", clienteRoutes);
+    app.use("/socialIA/v1/user", userRoutes);
+    app.use("/socialIA/v1/publicacion",publiRoutes)
 }
  
 export const initServer = () => {
