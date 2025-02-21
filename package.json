@@ -24,5 +24,13 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngelJTumG/SociaIA-3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AngelJTumG/SociaIA-3/issues"
+  },
+  "homepage": "https://github.com/AngelJTumG/SociaIA-3#readme"
 }
