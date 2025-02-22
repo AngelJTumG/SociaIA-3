@@ -8,6 +8,7 @@ import { dbConnection } from "./mongo.js"
 import authRoutes from "../src/auth/auth.routes.js";
 import userRoutes from "../src/usuarios/user.routes.js";
 import publiRoutes from "../src/publicacion/publi.routes.js"
+import categoriaRoutes from "../src/categorias/categoria.routes.js"
 import apiLimiter from "../src/middlewares/rate-limit-validator.js"
  
  
@@ -33,7 +34,8 @@ const conectarDB = async () =>{
 const routes = (app) => {
     app.use("/socialIA/v1/auth", authRoutes);
     app.use("/socialIA/v1/user", userRoutes);
-    app.use("/socialIA/v1/publicacion",publiRoutes)
+    app.use("/socialIA/v1/publicacion",publiRoutes);
+    app.use("/socialIA/v1/categoria",categoriaRoutes);
 }
  
 export const initServer = () => {
