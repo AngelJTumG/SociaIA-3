@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "SociaIA-3 API",
+    "description": "Colección de Postman para la API de SociaIA-3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test\",\n    \"surname\": \"User\",\n    \"username\": \"testuser\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"Test@1234\",\n    \"phone\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"Test@1234\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Obtener Usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "user"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Usuario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/user/findUser/:uid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "user", "findUser", ":uid"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Contraseña",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"newPassword\": \"NewTest@1234\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/user/updatePassword/:uid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "user", "updatePassword", ":uid"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Usuario",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Name\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/user/updateUser/:uid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "user", "updateUser", ":uid"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Foto de Perfil",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/user/updateProfilePicture/:uid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "user", "updateProfilePicture", ":uid"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Publicaciones",
+      "item": [
+        {
+          "name": "Crear Publicación",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"titulo\": \"Nueva Publicación\",\n    \"categoria\": \"general\",\n    \"texto\": \"Contenido de la publicación\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/publicacion/crearPublicacion",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "publicacion", "crearPublicacion"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Publicaciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/publicacion",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "publicacion"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Publicación",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"titulo\": \"Título Actualizado\",\n    \"categoria\": \"general\",\n    \"texto\": \"Texto actualizado\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/publicacion/editarPublicacion/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "publicacion", "editarPublicacion", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Publicación",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/publicacion/eliminarPublicacion/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "publicacion", "eliminarPublicacion", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Obtener Categorías",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/categoria/categorias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "categoria", "categorias"]
+            }
+          }
+        },
+        {
+          "name": "Crear Categoría",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"Nueva Categoría\",\n    \"descripcion\": \"Descripción de la categoría\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/categoria/categorias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "categoria", "categorias"]
+            }
+          }
+        },
+        {
+          "name": "Editar Categoría",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"Categoría Actualizada\",\n    \"descripcion\": \"Descripción actualizada\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/categoria/categorias/:cid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "categoria", "categorias", ":cid"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Categoría",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/socialIA/v1/categoria/categorias/:cid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["socialIA", "v1", "categoria", "categorias", ":cid"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
