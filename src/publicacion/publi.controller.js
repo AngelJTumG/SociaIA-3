@@ -53,7 +53,7 @@ export const actualizarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body;
-        const usuarioId = req.user._id; // Asumiendo que el ID del usuario está en req.user
+        const usuarioId = req.user._id;
 
         const publicacion = await Publicacion.findById(id);
         if (!publicacion) {
@@ -89,7 +89,7 @@ export const actualizarPublicacion = async (req, res) => {
 export const eliminarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
-        const usuarioId = req.user._id; // Asumiendo que el ID del usuario está en req.user
+        const usuarioId = req.user._id; 
         const usuario = await User.findById(usuarioId);
 
         const publicacion = await Publicacion.findById(id);
