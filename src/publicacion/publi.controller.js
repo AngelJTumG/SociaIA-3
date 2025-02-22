@@ -97,7 +97,7 @@ export const eliminarPublicacion = async (req, res) => {
             });
         }
 
-        if (publicacion.autor.toString() !== usuarioId.toString() && usuario.role !== 'ADMIN_ROLE') {
+        if (publicacion.autor.toString() !== usuarioId.toString()) {
             return res.status(403).json({
                 success: false,
                 msg: 'No tienes permiso para eliminar esta publicación'
