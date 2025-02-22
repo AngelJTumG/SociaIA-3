@@ -25,9 +25,6 @@ const clienteSchema = new Schema({
         type: String,
         required: [true, "Password is required"]
     },
-    profilePicture: {
-        type: String
-    },
     phone: {
         type: String,
         minLength: 8,
@@ -37,7 +34,7 @@ const clienteSchema = new Schema({
     role: {
         type: String,
         required: true,
-        enum: ["CLIENTE_ROLE" ],
+        enum: ["CLIENTE_ROLE", "ADMIN"],
         default: "CLIENTE_ROLE"
     },
     status: {
