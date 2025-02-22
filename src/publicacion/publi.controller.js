@@ -23,19 +23,17 @@ export const agregarPublicacion = async (req, res) => {
 
 export const obtenerPublicaciones = async (req, res) => {
     try {
-        const query = { status: true };
- 
-        const publication = await Publicacion.find(query);
+        const publication = await Publicacion.find();
  
         return res.status(200).json({
             success: true,
             publication
         });
-    } catch (err) {
+    } catch (error) {
         return res.status(500).json({
             success: false,
             msg: 'Error al obtener las publicaciones',
-            error: err.message
+            error: error.message
         });
     }
 };
@@ -44,7 +42,14 @@ export const actualizarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body;
-        const usuarioId = req.user._id; // Asumiendo que el ID del usuario está en req.user
+        const usuario = req.usuario;
+
+        if (!usuario) {
+            return res.status(401).json({
+                success: false,
+                msg: 'Usuario no autenticado'
+            });
+        }
 
         const publicacion = await Publicacion.findById(id);
         if (!publicacion) {
@@ -54,14 +59,14 @@ export const actualizarPublicacion = async (req, res) => {
             });
         }
 
-        if (publicacion.autor.toString() !== usuarioId.toString() && req.user.role !== 'ADMIN_ROLE') {
+        if (publicacion.autor.toString() !== usuario._id.toString() && usuario.role !== 'ADMIN_ROLE') {
             return res.status(403).json({
                 success: false,
                 msg: 'No tienes permiso para actualizar esta publicación'
             });
         }
 
-        const publicacionActualizada = await Publicacion.findByIdAndUpdate(id, { titulo, categoria, texto }, { new: true });
+        const publicacionActualizada = await Publicacion.findByIdAndUpdate(id, data, { new: true });
 
         return res.status(200).json({
             success: true,
@@ -80,7 +85,7 @@ export const actualizarPublicacion = async (req, res) => {
 export const eliminarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
-        const usuarioId = req.user._id; // Asumiendo que el ID del usuario está en req.user
+        const usuarioId = req.user._id; 
         const usuario = await User.findById(usuarioId);
 
         const publicacion = await Publicacion.findById(id);
