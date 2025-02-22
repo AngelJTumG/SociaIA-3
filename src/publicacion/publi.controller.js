@@ -23,17 +23,28 @@ export const agregarPublicacion = async (req, res) => {
 
 export const obtenerPublicaciones = async (req, res) => {
     try {
-        const publication = await Publicacion.find();
+        const { limite = 5 ,desde = 0 } = req.query;    
+        const query = { status: true };
  
+        const publicacion = await Publicacion.find(query);
+        
+        const [total, Publicacion] = await Promise.all([
+            Publicacion.countDocuments(query),
+            Publicacion.find(query)
+                .skip(Number(desde))
+                .limit(Number(limite))
+        ]);
+
         return res.status(200).json({
             success: true,
-            publication
+            total,
+            publicacion
         });
-    } catch (error) {
+    } catch (err) {
         return res.status(500).json({
             success: false,
             msg: 'Error al obtener las publicaciones',
-            error: error.message
+            error: err.message
         });
     }
 };
@@ -42,14 +53,7 @@ export const actualizarPublicacion = async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body;
-        const usuario = req.usuario;
-
-        if (!usuario) {
-            return res.status(401).json({
-                success: false,
-                msg: 'Usuario no autenticado'
-            });
-        }
+        const usuarioId = req.user._id;
 
         const publicacion = await Publicacion.findById(id);
         if (!publicacion) {
@@ -59,14 +63,14 @@ export const actualizarPublicacion = async (req, res) => {
             });
         }
 
-        if (publicacion.autor.toString() !== usuario._id.toString() && usuario.role !== 'ADMIN_ROLE') {
+        if (publicacion.autor.toString() !== usuarioId.toString() && req.user.role !== 'ADMIN_ROLE') {
             return res.status(403).json({
                 success: false,
                 msg: 'No tienes permiso para actualizar esta publicación'
             });
         }
 
-        const publicacionActualizada = await Publicacion.findByIdAndUpdate(id, data, { new: true });
+        const publicacionActualizada = await Publicacion.findByIdAndUpdate(id, { titulo, categoria, texto }, { new: true });
 
         return res.status(200).json({
             success: true,
@@ -97,7 +101,7 @@ export const eliminarPublicacion = async (req, res) => {
             });
         }
 
-        if (publicacion.autor.toString() !== usuarioId.toString()) {
+        if (publicacion.autor.toString() !== usuarioId.toString() && usuario.role !== 'ADMIN_ROLE') {
             return res.status(403).json({
                 success: false,
                 msg: 'No tienes permiso para eliminar esta publicación'

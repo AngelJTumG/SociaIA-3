@@ -20,3 +20,22 @@ export const userExists = async (uid = " ") => {
         throw new Error("No existe el usuario con el ID proporcionado")
     }
 }
+
+export const hasRoles = (...roles) => {
+    return (req, res, next) =>{
+        if(!req.usuario){
+            return res.status(500).json({
+                success: false,
+                message: "Se quiere verificar un role antes de validar el token"
+            })
+        }
+
+        if(!roles.includes(req.usuario.role)){
+            return res.status(401).json({
+                success: false,
+                message:`El servicio requiere uno de estos roles ${roles}`
+            })
+        }
+        next()
+    }
+}
